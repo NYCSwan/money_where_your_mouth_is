@@ -6,3 +6,4 @@ gem 'rspec', '~> 3.1.0'
 gem 'sqlite3', '~> 1.3.9'
 gem 'database_cleaner'
 gem 'pry'
+

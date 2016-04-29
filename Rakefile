@@ -85,6 +85,11 @@ namespace :db do
   end
 end
 
+  desc "populate the database with the api data"
+    task :seed do
+      require APP_ROOT.join('db', 'seeds.rb')
+    end
+
 
 namespace :generate do
   desc "Create an empty model in app/models, e.g., rake generate:model NAME=User"
