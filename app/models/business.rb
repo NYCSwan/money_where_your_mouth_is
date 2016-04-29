@@ -1,7 +1,7 @@
 class Business < ActiveRecord::Base
   def self.parse(data)
     @@zipcode = data.scan(/\d{5}/)
-    @@zipcode.nil? ? false : true
+    @@zipcode.empty? ? false : true
   end
 
   def self.find
