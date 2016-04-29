@@ -1,41 +1,94 @@
+require 'colorize'
+
 class View
 
+  def ascii
+    puts
+    puts '           $$$$$$$\  $$\   $$\ $$$$$$$$\       $$\     $$\  $$$$$$\  $$\   $$\ $$$$$$$\
+           $$  __$$\ $$ |  $$ |\__$$  __|      \$$\   $$  |$$  __$$\ $$ |  $$ |$$  __$$\
+           $$ |  $$ |$$ |  $$ |   $$ |          \$$\ $$  / $$ /  $$ |$$ |  $$ |$$ |  $$ |
+           $$$$$$$  |$$ |  $$ |   $$ |           \$$$$  /  $$ |  $$ |$$ |  $$ |$$$$$$$  |
+           $$  ____/ $$ |  $$ |   $$ |            \$$  /   $$ |  $$ |$$ |  $$ |$$  __$$<
+           $$ |      $$ |  $$ |   $$ |             $$ |    $$ |  $$ |$$ |  $$ |$$ |  $$ |
+           $$ |      \$$$$$$  |   $$ |             $$ |     $$$$$$  |\$$$$$$  |$$ |  $$ |
+           \__|       \______/    \__|             \__|     \______/  \______/ \__|  \__|
+                                                                                  '
+   puts '                    $$\      $$\  $$$$$$\  $$\   $$\ $$$$$$$$\ $$\     $$\
+                    $$$\    $$$ |$$  __$$\ $$$\  $$ |$$  _____|\$$\   $$  |
+                    $$$$\  $$$$ |$$ /  $$ |$$$$\ $$ |$$ |       \$$\ $$  /
+                    $$\$$\$$ $$ |$$ |  $$ |$$ $$\$$ |$$$$$\      \$$$$  /
+                    $$ \$$$  $$ |$$ |  $$ |$$ \$$$$ |$$  __|      \$$  /
+                    $$ |\$  /$$ |$$ |  $$ |$$ |\$$$ |$$ |          $$ |
+                    $$ | \_/ $$ | $$$$$$  |$$ | \$$ |$$$$$$$$\     $$ |
+                    \__|     \__| \______/ \__|  \__|\________|    \__|'.colorize(:green)
+  puts
+  puts '  $$\      $$\ $$\   $$\ $$$$$$$$\ $$$$$$$\  $$$$$$$$\       $$\     $$\  $$$$$$\  $$\   $$\ $$$$$$$\
+  $$ | $\  $$ |$$ |  $$ |$$  _____|$$  __$$\ $$  _____|      \$$\   $$  |$$  __$$\ $$ |  $$ |$$  __$$\
+  $$ |$$$\ $$ |$$ |  $$ |$$ |      $$ |  $$ |$$ |             \$$\ $$  / $$ /  $$ |$$ |  $$ |$$ |  $$ |
+  $$ $$ $$\$$ |$$$$$$$$ |$$$$$\    $$$$$$$  |$$$$$\            \$$$$  /  $$ |  $$ |$$ |  $$ |$$$$$$$  |
+  $$$$  _$$$$ |$$  __$$ |$$  __|   $$  __$$< $$  __|            \$$  /   $$ |  $$ |$$ |  $$ |$$  __$$<
+  $$$  / \$$$ |$$ |  $$ |$$ |      $$ |  $$ |$$ |                $$ |    $$ |  $$ |$$ |  $$ |$$ |  $$ |
+  $$  /   \$$ |$$ |  $$ |$$$$$$$$\ $$ |  $$ |$$$$$$$$\           $$ |     $$$$$$  |\$$$$$$  |$$ |  $$ |
+  \__/     \__|\__|  \__|\________|\__|  \__|\________|          \__|     \______/  \______/ \__|  \__|'
+  puts
+
+  puts '       $$\      $$\  $$$$$$\  $$\   $$\ $$$$$$$$\ $$\   $$\       $$$$$$\  $$$$$$\        $$\
+       $$$\    $$$ |$$  __$$\ $$ |  $$ |\__$$  __|$$ |  $$ |      \_$$  _|$$  __$$\       $$ |
+       $$$$\  $$$$ |$$ /  $$ |$$ |  $$ |   $$ |   $$ |  $$ |        $$ |  $$ /  \__|      $$ |
+       $$\$$\$$ $$ |$$ |  $$ |$$ |  $$ |   $$ |   $$$$$$$$ |        $$ |  \$$$$$$\        $$ |
+       $$ \$$$  $$ |$$ |  $$ |$$ |  $$ |   $$ |   $$  __$$ |        $$ |   \____$$\       \__|
+       $$ |\$  /$$ |$$ |  $$ |$$ |  $$ |   $$ |   $$ |  $$ |        $$ |  $$\   $$ |
+       $$ | \_/ $$ | $$$$$$  |\$$$$$$  |   $$ |   $$ |  $$ |      $$$$$$\ \$$$$$$  |      $$\
+       \__|     \__| \______/  \______/    \__|   \__|  \__|      \______| \______/       \__|
+                                                                                       '
+  end
+
   def welcome
-    puts "----------------------------------------------------------------------------------------------------"
-    puts "PUT YOUR MONEY WHERE YOUR MOUTH IS".center(100)
-    puts "---------------------------------------------------------------------------------------------------------"
-    puts "\nYou're helping promote and foster the growth of NYC's women and minority owned businesses! While small businesses make up a huge portion of NYC's businesses, minority and women owned ones make up only a fraction. THANKS FOR HELPING OUT!!!".center(100)
-    puts "---------------------------------------------------------------------------------------------------------"
+    ascii
+    puts "\n--------------------------------------------------------------"
+    puts "\n  You're helping promote and foster the growth of
+  NYC's women and minority owned businesses! While
+  small businesses make up a huge portion of NYC's
+  businesses, minority and women owned ones make up
+  only a fraction. THANKS FOR HELPING OUT!!!\n".colorize(:red)
+    puts "--------------------------------------------------------------"
   end
 
   def get_location
-    print "\nEnter zip code:   "
+    print "\n  Enter an address with a zip code:   "
     input
   end
 
   def print_search_results(results)
+    puts "\n--------------------------------------------------------------"
+    puts "\n  YOUR RESULTS:".colorize(:light_blue)
     results.each do |result|
-      puts "\n---------------------------------------------------------------------------------------------------------"
-      puts "#{result[:vendor_formal_name]}"
-      puts "#{result[:business_description]}"
-      puts "\n#{result[:address1]} #{result[:address2]}, #{result[:city]}, #{result[:state]}, #{result[:zip]}"
-      puts "\n#{result[:website]}"
-      puts "#{result[:telephone]}"
+      puts "\n--------------------------------------------------------------"
+      puts "\n  #{result[:vendor_formal_name]}".colorize(:green)
+
+      desc = result[:business_description].scan(/.{1,60}\W/).map(&:strip)
+      desc.each{|line| puts "    #{line}"}
+
+      puts "\n  #{result[:address1]}, #{result[:city]}, #{result[:state]}, #{result[:zip]}"
+      puts "\n  #{result[:website]}" if result[:website]
+      puts "  phone: #{result[:telephone].insert(3, "-").insert(7, "-")}"
     end
   end
 
   def unfound_error
-    puts "\nDid you enter a zip?! It looks invalid, try again!"
+    puts "\n  Did you enter a zip?! It looks invalid, try again!"
   end
 
   def offer_to_search_again
-    puts "\n\n---------------------------------------------------------------------------------------------------------"
-    print "Want to find more businesses? (y/n)   "
+    puts "\n--------------------------------------------------------------"
+    print "\n  Want to find more businesses? (y/n)   "
     input
   end
 
   def goodbye
-    puts "\nNow go put your money where your mouth is!"
+    puts "\n--------------------------------------------------------------"
+    puts "\n        NOW GO PUT YOUR MONEY WHERE YOUR MOUTH IS!!!".colorize(:red)
+    puts "\n--------------------------------------------------------------"
   end
 
   def input
