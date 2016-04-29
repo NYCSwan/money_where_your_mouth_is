@@ -27,8 +27,8 @@ end
 # Set up ActiveRecord::Base to log its activity depending upon the value of ENV['AR_ENV']
 ActiveRecord::Base.logger = if ENV['AR_ENV'] == 'test'
                               nil
-                            else
-                              Logger.new(STDOUT)
+                            # else
+                            #   Logger.new(STDOUT)
                             end
 
 
